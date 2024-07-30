@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel6_assignment_task/business_logic/blocs/on_tap_listner/on_tap_listner_cubit.dart';
+import 'package:pixel6_assignment_task/view/screens/edit_add_customer_screen.dart';
 import 'package:pixel6_assignment_task/view/widgets/customer_card_widget.dart';
 
 import '../widgets/buttons.dart';
@@ -64,16 +65,32 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
         builder: (context, state) {
           return state is OnTapListnerSet
               ? !state.enable
-                  ? RectangularFloatingActionButton()
+                  ? RectangularFloatingActionButton(
+                      label: "Add Customer",
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddOrEditCustomerScreen(
+                                label: 'Add Customer',readOnly: false,)));
+                      },
+                    )
                   : FloatingActionButton(
                       backgroundColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                                                Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddOrEditCustomerScreen(
+                                label: 'Add Customer',readOnly:  false,)));
+                      },
                       child: Icon(
                         Icons.add,
                         color: Colors.red,
                       ),
                     )
-              : RectangularFloatingActionButton();
+              : RectangularFloatingActionButton(
+                  label: "Add Customer",
+                  onTap: () {                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddOrEditCustomerScreen(
+                                label: 'Add Customer',readOnly: false,)));},
+                );
         },
       ),
       floatingActionButtonLocation: _getFloatingActionButtonLocation(context),
@@ -91,4 +108,3 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
     return FloatingActionButtonLocation.endFloat; // Default location
   }
 }
-
